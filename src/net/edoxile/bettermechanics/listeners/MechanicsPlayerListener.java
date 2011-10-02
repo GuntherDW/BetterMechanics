@@ -149,14 +149,21 @@ public class MechanicsPlayerListener extends PlayerListener {
                         if (permissions.check(event.getPlayer(), "pen", event.getClickedBlock(), false)) {
                             String[] text = Pen.getLines(event.getPlayer());
                             if (text != null) {
-                                SignChangeEvent evt = new SignChangeEvent(sign.getBlock(), event.getPlayer(), text);
-                                event.getPlayer().getServer().getPluginManager().callEvent(evt);
-                                if (!evt.isCancelled()) {
-                                    for (int i = 0; i < text.length; i++) {
-                                        sign.setLine(i, text[i]);
+                                String firstline = ((Sign)sign.getBlock().getState()).getLine(0);
+                                Boolean LocketteSign = firstline.equals("[Private]") || firstline.equals("[More Users]");
+                                if(!LocketteSign) {
+                                    SignChangeEvent evt = new SignChangeEvent(sign.getBlock(), event.getPlayer(), text);
+                                    event.getPlayer().getServer().getPluginManager().callEvent(evt);
+                                    if (!evt.isCancelled()) {
+                                        for (int i = 0; i < text.length; i++) {
+                                            sign.setLine(i, text[i]);
+                                        }
+                                        sign.update(true);
+                                        event.getPlayer().sendMessage(ChatColor.GOLD + "You edited the sign!");
                                     }
-                                    sign.update(true);
-                                    event.getPlayer().sendMessage(ChatColor.GOLD + "You edited the sign!");
+                                } else {
+                                    event.getPlayer().sendMessage(ChatColor.GOLD + "I'm not changing lockette signs!");
+                                    event.getPlayer().sendMessage(ChatColor.GOLD + "use /lockette!");
                                 }
                             } else {
                                 text = sign.getLines();
@@ -194,7 +201,8 @@ public class MechanicsPlayerListener extends PlayerListener {
                 if (isRedstoneBlock(event.getClickedBlock().getTypeId()))
                     return;
 
-                BlockFace[] toCheck = {BlockFace.WEST, BlockFace.EAST, BlockFace.SOUTH, BlockFace.NORTH, BlockFace.DOWN, BlockFace.UP};
+                // BlockFace[] toCheck = {BlockFace.WEST, BlockFace.EAST, BlockFace.SOUTH, BlockFace.NORTH, BlockFace.DOWN, BlockFace.UP};
+                BlockFace[] toCheck = {BlockFace.WEST, BlockFace.EAST, BlockFace.SOUTH, BlockFace.NORTH};
                 for (BlockFace b : toCheck) {
                     if (SignUtil.isSign(event.getClickedBlock().getRelative(b))) {
                         Sign sign = SignUtil.getSign(event.getClickedBlock().getRelative(b));

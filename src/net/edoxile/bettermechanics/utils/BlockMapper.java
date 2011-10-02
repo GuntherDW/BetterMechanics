@@ -8,7 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Sign;
+import org.bukkit.material.Sign;
 
 import java.util.HashSet;
 import java.util.logging.Logger;
@@ -99,6 +99,38 @@ public class BlockMapper {
             break;
             default:
                 throw new InvalidDirectionException();
+        }
+        return blockSet;
+    }
+
+    public static HashSet<Block> mapHiddenSwitch(Block start)  {
+        // if(!(start.getState() instanceof Sign)) return null;
+
+        HashSet<Block> blockSet = new HashSet<Block>();
+        HashSet<Block> tempBlocks = new HashSet<Block>();
+
+        if(start.getType() != org.bukkit.Material.WALL_SIGN) return blockSet;
+
+        BlockFace signface = ((Sign) start.getState().getData()).getAttachedFace();
+
+        tempBlocks.add(start.getRelative(BlockFace.UP));
+        tempBlocks.add(start.getRelative(BlockFace.DOWN));
+
+        switch(signface) {
+            case NORTH:
+            case SOUTH:
+                tempBlocks.add(start.getRelative(BlockFace.WEST));
+                tempBlocks.add(start.getRelative(BlockFace.EAST));
+                break;
+            case EAST:
+            case WEST:
+                tempBlocks.add(start.getRelative(BlockFace.NORTH));
+                tempBlocks.add(start.getRelative(BlockFace.SOUTH));
+                break;
+        }
+        for(Block b : tempBlocks) {
+            if(b.getType()==Material.LEVER)
+                blockSet.add(b);
         }
         return blockSet;
     }
@@ -295,11 +327,11 @@ public class BlockMapper {
         return null;
     }
 
-    public static Sign findMechanicsSign(Block block, BlockFace direction, MechanicsType type, int maxBlockDistance) throws BlockNotFoundException {
+    public static org.bukkit.block.Sign findMechanicsSign(Block block, BlockFace direction, MechanicsType type, int maxBlockDistance) throws BlockNotFoundException {
         for (int d = 0; d < maxBlockDistance; d++) {
             block = block.getRelative(direction);
             if (SignUtil.isSign(block)) {
-                Sign s = SignUtil.getSign(block);
+                org.bukkit.block.Sign s = SignUtil.getSign(block);
                 if (s != null) {
                     if (SignUtil.getMechanicsType(s) == type) {
                         return s;

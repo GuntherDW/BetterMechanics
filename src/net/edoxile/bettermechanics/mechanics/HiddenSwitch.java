@@ -2,7 +2,6 @@ package net.edoxile.bettermechanics.mechanics;
 
 import net.edoxile.bettermechanics.utils.BlockMapper;
 import net.edoxile.bettermechanics.utils.MechanicsConfig;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -28,7 +27,8 @@ public class HiddenSwitch {
     public boolean map() {
         if (!config.enabled)
             return false;
-        levers = BlockMapper.mapAllInCuboidRegion(sign.getBlock(), 1, Material.LEVER);
+        // levers = BlockMapper.mapAllInCuboidRegion(sign.getBlock(), 1, Material.LEVER);
+        levers = BlockMapper.mapHiddenSwitch(sign.getBlock());
         return (!levers.isEmpty());
     }
 
