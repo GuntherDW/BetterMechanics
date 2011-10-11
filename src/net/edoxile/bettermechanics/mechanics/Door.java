@@ -50,11 +50,13 @@ public class Door {
         } else {
             direction = BlockFace.UP;
         }
+
         if (config.canUseBlock(sign.getBlock().getRelative(direction).getType())) {
             doorMaterial = new MaterialData(sign.getBlock().getRelative(direction).getType(), sign.getBlock().getRelative(direction).getData());
         } else {
             throw new InvalidMaterialException();
         }
+
         Sign endSign = BlockMapper.findMechanicsSign(sign.getBlock(), direction, doorType, config.maxHeight);
         Block startBlock = sign.getBlock().getRelative(direction).getRelative(direction);
         Block endBlock = null;
@@ -72,6 +74,7 @@ public class Door {
                 Block chestBlock = BlockMapper.mapCuboidRegion(sign.getBlock(), 3, Material.CHEST);
                 if (chestBlock == null) {
                     //Check other sign
+
                     chestBlock = BlockMapper.mapCuboidRegion(endSign.getBlock(), 3, Material.CHEST);
                     if (chestBlock == null) {
                         throw new ChestNotFoundException();

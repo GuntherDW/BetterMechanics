@@ -28,26 +28,42 @@ public class SignUtil {
     }
 
     public static MechanicsType getMechanicsType(String str) {
-        if (str.equalsIgnoreCase("[Lift Up]") || str.equalsIgnoreCase("[Lift Down]") || str.equalsIgnoreCase("[Lift]"))
+        if (str.equalsIgnoreCase("[Lift Up]")
+         || str.equalsIgnoreCase("[Lift Down]")
+         || str.equalsIgnoreCase("[Lift]"))
             return MechanicsType.LIFT;
-        else if (str.equalsIgnoreCase("[TeleLift]"))
+        
+        if (str.equalsIgnoreCase("[TeleLift]"))
             return MechanicsType.TELELIFT;
-        else if (str.equalsIgnoreCase("[Gate]"))
+
+        if (str.equalsIgnoreCase("[Gate]"))
             return MechanicsType.GATE;
-        else if (str.equalsIgnoreCase("[Dgate]"))
+
+        if (str.equalsIgnoreCase("[Dgate]"))
             return MechanicsType.SMALL_GATE;
-        else if (str.equalsIgnoreCase("[Bridge]") || str.equalsIgnoreCase("[Bridge End]"))
+
+        if (str.equalsIgnoreCase("[Bridge]")
+         || str.equalsIgnoreCase("[Bridge End]"))
             return MechanicsType.BRIDGE;
-        else if (str.equalsIgnoreCase("[sBridge]") || str.equalsIgnoreCase("[sBridge End]"))
+
+        if (str.equalsIgnoreCase("[sBridge]")
+         || str.equalsIgnoreCase("[sBridge End]"))
             return MechanicsType.SMALL_BRIDGE;
-        else if (str.equalsIgnoreCase("[Door]") || str.equalsIgnoreCase("[Door Down]") || str.equalsIgnoreCase("[Door Up]"))
+
+        if (str.equalsIgnoreCase("[Door]")
+         || str.equalsIgnoreCase("[Door Down]")
+         || str.equalsIgnoreCase("[Door Up]"))
             return MechanicsType.DOOR;
-        else if (str.equalsIgnoreCase("[sDoor]") || str.equalsIgnoreCase("[sDoor Down]") || str.equalsIgnoreCase("[sDoor Up]"))
+
+        if (str.equalsIgnoreCase("[sDoor]")
+         || str.equalsIgnoreCase("[sDoor Down]")
+         || str.equalsIgnoreCase("[sDoor Up]"))
             return MechanicsType.SMALL_DOOR;
-        else if (str.equalsIgnoreCase("[X]"))
+
+        if (str.equalsIgnoreCase("[X]"))
             return MechanicsType.HIDDEN_SWITCH;
-        else
-            return null;
+
+        return null;
     }
 
     public static MechanicsType getMechanicsType(Sign s) {
@@ -64,28 +80,42 @@ public class SignUtil {
     }
 
     public static MechanicsType getActiveMechanicsType(String str) {
-        if (str.equalsIgnoreCase("[Lift Up]") || str.equalsIgnoreCase("[Lift Down]"))
+        if (str.equalsIgnoreCase("[Lift Up]")
+         || str.equalsIgnoreCase("[Lift Down]"))
             return MechanicsType.LIFT;
-        else if (str.equalsIgnoreCase("[TeleLift]"))
+
+        if (str.equalsIgnoreCase("[TeleLift]"))
             return MechanicsType.TELELIFT;
-        else if (str.equalsIgnoreCase("[Gate]"))
+
+        if (str.equalsIgnoreCase("[Gate]"))
             return MechanicsType.GATE;
-        else if (str.equalsIgnoreCase("[Dgate]"))
+
+        if (str.equalsIgnoreCase("[Dgate]"))
             return MechanicsType.SMALL_GATE;
-        else if (str.equalsIgnoreCase("[Bridge]"))
+
+        if (str.equalsIgnoreCase("[Bridge]"))
             return MechanicsType.BRIDGE;
-        else if (str.equalsIgnoreCase("[sBridge]"))
+
+        if (str.equalsIgnoreCase("[sBridge]"))
             return MechanicsType.SMALL_BRIDGE;
-        else if (str.equalsIgnoreCase("[Door Down]") || str.equalsIgnoreCase("[Door Up]"))
+
+        if (str.equalsIgnoreCase("[Door Down]")
+         || str.equalsIgnoreCase("[Door Up]"))
             return MechanicsType.DOOR;
-        else if (str.equalsIgnoreCase("[sDoor Down]") || str.equalsIgnoreCase("[sDoor Up]"))
+
+        if (str.equalsIgnoreCase("[sDoor Down]")
+         || str.equalsIgnoreCase("[sDoor Up]"))
             return MechanicsType.SMALL_DOOR;
-        else if (str.equalsIgnoreCase("[sDoor Down]") || str.equalsIgnoreCase("[sDoor Up]"))
+
+        if (str.equalsIgnoreCase("[sDoor Down]")
+         || str.equalsIgnoreCase("[sDoor Up]"))
             return MechanicsType.DOOR;
-        else if (str.equalsIgnoreCase("[X]"))
+
+        if (str.equalsIgnoreCase("[X]"))
             return MechanicsType.HIDDEN_SWITCH;
-        else
-            return null;
+
+
+        return null;
     }
 
     public static BlockFace getBackBlockFace(Sign s) throws NonCardinalDirectionException {

@@ -36,7 +36,7 @@ public class MechanicsBlockListener extends BlockListener {
         if (SignUtil.getMechanicsType(str) == null) {
             return;
         } else {
-            if (!permissions.check(event.getPlayer(), SignUtil.getActiveMechanicsType(str).name().toLowerCase() + ".create", event.getBlock(), false)) {
+            if (!permissions.check(event.getPlayer(), SignUtil.getMechanicsType(str).name().toLowerCase() + ".create", event.getBlock(), false)) {
                 event.setCancelled(true);
                 return;
             } else {

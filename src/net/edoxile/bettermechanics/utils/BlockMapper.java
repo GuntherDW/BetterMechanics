@@ -20,9 +20,11 @@ import java.util.logging.Logger;
 public class BlockMapper {
     private static final Logger log = Logger.getLogger("Minecraft");
     private static HashSet<Block> recursiveSet = new HashSet<Block>();
+    private static int maxTraverse = 128;
 
     public static HashSet<Block> mapHorizontal(BlockFace direction, Block start, Block end, boolean small) throws InvalidDirectionException {
         HashSet<Block> blockSet = new HashSet<Block>();
+        int traversed = 0;
 
         switch (direction) {
             case WEST: {
@@ -32,13 +34,17 @@ public class BlockMapper {
                     throw new InvalidDirectionException();
                 } else {
                     Block tempBlock = start;
-                    while (tempBlock != end) {
+                    while (!tempBlock.getLocation().equals(end.getLocation()) && traversed < maxTraverse) {
                         blockSet.add(tempBlock);
                         if (!small) {
                             blockSet.add(tempBlock.getRelative(BlockFace.NORTH));
                             blockSet.add(tempBlock.getRelative(BlockFace.SOUTH));
                         }
                         tempBlock = tempBlock.getRelative(direction);
+                        traversed++;
+                    }
+                    if(traversed>=maxTraverse) {
+                        log.severe("[BetterMechanics] MaxTraverse hit on "+start.getLocation());
                     }
                 }
             }
@@ -50,13 +56,17 @@ public class BlockMapper {
                     throw new InvalidDirectionException();
                 } else {
                     Block tempBlock = start;
-                    while (tempBlock != end) {
+                    while (!tempBlock.getLocation().equals(end.getLocation()) && traversed < maxTraverse) {
                         blockSet.add(tempBlock);
                         if (!small) {
                             blockSet.add(tempBlock.getRelative(BlockFace.NORTH));
                             blockSet.add(tempBlock.getRelative(BlockFace.SOUTH));
                         }
                         tempBlock = tempBlock.getRelative(direction);
+                        traversed++;
+                    }
+                    if(traversed>=maxTraverse) {
+                        log.severe("[BetterMechanics] MaxTraverse hit on "+start.getLocation());
                     }
                 }
             }
@@ -68,13 +78,17 @@ public class BlockMapper {
                     throw new InvalidDirectionException();
                 } else {
                     Block tempBlock = start;
-                    while (tempBlock != end) {
+                    while (!tempBlock.getLocation().equals(end.getLocation()) && traversed < maxTraverse) {
                         blockSet.add(tempBlock);
                         if (!small) {
                             blockSet.add(tempBlock.getRelative(BlockFace.WEST));
                             blockSet.add(tempBlock.getRelative(BlockFace.EAST));
                         }
                         tempBlock = tempBlock.getRelative(direction);
+                        traversed++;
+                    }
+                    if(traversed>=maxTraverse) {
+                        log.severe("[BetterMechanics] MaxTraverse hit on "+start.getLocation());
                     }
                 }
             }
@@ -86,13 +100,17 @@ public class BlockMapper {
                     throw new InvalidDirectionException();
                 } else {
                     Block tempBlock = start;
-                    while (tempBlock != end) {
+                    while (!tempBlock.getLocation().equals(end.getLocation()) && traversed < maxTraverse) {
                         blockSet.add(tempBlock);
                         if (!small) {
                             blockSet.add(tempBlock.getRelative(BlockFace.WEST));
                             blockSet.add(tempBlock.getRelative(BlockFace.EAST));
                         }
                         tempBlock = tempBlock.getRelative(direction);
+                        traversed++;
+                    }
+                    if(traversed>=maxTraverse) {
+                        log.severe("[BetterMechanics] MaxTraverse hit on "+start.getLocation());
                     }
                 }
             }
@@ -137,6 +155,7 @@ public class BlockMapper {
 
     public static HashSet<Block> mapVertical(BlockFace direction, BlockFace orientation, Block start, Block end, boolean small) throws InvalidDirectionException {
         HashSet<Block> blockSet = new HashSet<Block>();
+        int traversed = 0;
         switch (direction) {
             case UP: {
                 Location startLoc = start.getLocation();
@@ -145,7 +164,8 @@ public class BlockMapper {
                     throw new InvalidDirectionException();
                 } else {
                     Block tempBlock = start;
-                    while (tempBlock != end) {
+
+                    while (!tempBlock.getLocation().equals(end.getLocation()) && traversed < maxTraverse) {
                         blockSet.add(tempBlock);
                         if (!small) {
                             switch (orientation) {
@@ -164,6 +184,10 @@ public class BlockMapper {
                             }
                         }
                         tempBlock = tempBlock.getRelative(direction);
+                        traversed++;
+                    }
+                    if(traversed>=maxTraverse) {
+                        log.severe("[BetterMechanics] MaxTraverse hit on "+start.getLocation());
                     }
                 }
             }
@@ -175,7 +199,7 @@ public class BlockMapper {
                     throw new InvalidDirectionException();
                 } else {
                     Block tempBlock = start;
-                    while (tempBlock != end) {
+                    while (!tempBlock.getLocation().equals(end.getLocation()) && traversed < maxTraverse) {
                         blockSet.add(tempBlock);
                         switch (orientation) {
                             case NORTH:
@@ -192,6 +216,10 @@ public class BlockMapper {
                             break;
                         }
                         tempBlock = tempBlock.getRelative(direction);
+                        traversed++;
+                    }
+                    if(traversed>=maxTraverse) {
+                        log.severe("[BetterMechanics] MaxTraverse hit on "+start.getLocation());
                     }
                 }
             }
